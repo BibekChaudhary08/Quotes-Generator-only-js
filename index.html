@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js Quotes Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+       <h1>Bibek Quotes Generator</h1>
+       <div id="quotes">
+           <div id="text">
+                
+           </div>
+           <div id="author">
+             
+           </div>
+       </div>
+       <button id="btn" onclick="newQuotes()">newQuotes</button>
+    </div>
+    <script>
+
+        let realData = " ";
+
+        let text = document.getElementById('text');
+        let author = document.getElementById('author');
+        const setQuotes = () =>{
+            let rQuotes = Math.floor(Math.random() * 1000);
+            // console.log(rQuotes);
+           // console.log(realData[rQuotes].text);
+           // console.log(realData[rQuotes].author);
+            text.innerHTML = realData[rQuotes].text;
+ 
+            if(realData[rQuotes].author == null){
+                author.innerHTML = "Unknown";
+            }
+            else{
+            author.innerHTML = realData[rQuotes].author;
+            }
+
+        }
+ 
+        function newQuotes() {
+            document.getElementById('container').innerHTML = setQuotes(); 
+        }       
+
+        const getQuotes = async()=>{
+        const api = "https://type.fit/api/quotes";
+        try{
+           let data = await fetch(api);
+           realData = await data.json();
+           setQuotes();
+          // console.log(realData[1].text);
+          //console.log(realData[1].author);
+        }
+        catch(error){
+
+        }
+        }
+        getQuotes();
+      
+    </script>
+</body>
+</html>
